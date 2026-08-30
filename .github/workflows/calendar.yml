@@ -1,0 +1,56 @@
+name: カレンダーを更新
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/kuribayashi_minami.db'
+      - 'data/event_links.json'
+      - 'templates/calendar.html'
+      - 'scripts/build_calendar.py'
+  schedule:
+    # 毎日 16:30 UTC = 日本時間 深夜1:30
+    # 日付が変わると「今後の予定」が「その日の出来事」へ移るため、
+    # データが変わらなくても毎日流す必要がある
+    - cron: '30 16 * * *'
+  workflow_dispatch:        # 手動実行もできるようにする
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: ビルド
+        run: python3 scripts/build_calendar.py
+
+      - name: 生成物の検証
+        run: |
+          test -s docs/calendar/index.html
+          test -s docs/calendar/calendar.ics
+          test -s docs/calendar/events.json
+          # UIDが日カードのものになっているか（旧形式が混ざっていたら失敗させる）
+          if grep -q '^UID:d' docs/calendar/calendar.ics; then
+            echo "旧形式のUID(d....)が混ざっています。UIDマップを確認してください" >&2
+            exit 1
+          fi
+          echo "VEVENT: $(grep -c '^BEGIN:VEVENT' docs/calendar/calendar.ics)"
+
+      - name: 変更があればコミット
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add docs/calendar data/uid_map.json
+          if git diff --cached --quiet; then
+            echo '変更なし'
+          else
+            git commit -m "カレンダーを更新 ($(TZ=Asia/Tokyo date '+%Y-%m-%d %H:%M'))"
+            git push
+          fi

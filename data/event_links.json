@@ -1,0 +1,149 @@
+{
+  "_comment": "直近イベント・今日は何の日・過去の一覧に表示する公式リンク。year/month/day と match（タイトルの一部）で照合する。links は複数指定でき、記載順に表示される。label は「イベント情報」「チケット情報」「動画を見る」など。",
+  "links": [
+    {
+      "year": 2026,
+      "month": 8,
+      "day": 25,
+      "match": "Dang Dang 気になる",
+      "links": [
+        {
+          "label": "動画を見る",
+          "url": "https://youtu.be/egVsX_a1CcI"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 9,
+      "day": 10,
+      "match": "Minami Kuribayashi 25th",
+      "links": [
+        {
+          "label": "チケット情報",
+          "url": "https://edproduction.kktix.cc/events/minamikuribayashi-hk-2026"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 9,
+      "day": 19,
+      "match": "Cloud Nine Fes 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15338/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=788403"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "day": 12,
+      "match": "LIVE TOUR 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=678865"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "day": 24,
+      "match": "LIVE TOUR 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=678865"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "day": 7,
+      "match": "LIVE TOUR 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=678865"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "day": 20,
+      "match": "ファンクラブ旅行",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "day": 21,
+      "match": "LIVE TOUR 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=678865"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "day": 28,
+      "match": "LIVE TOUR 2026",
+      "links": [
+        {
+          "label": "イベント情報",
+          "url": "https://cloud9pro.co.jp/news/p/15395/"
+        },
+        {
+          "label": "チケット情報",
+          "url": "https://l-tike.com/concert/mevent/?mid=678865"
+        }
+      ]
+    },
+    {
+      "year": 2027,
+      "month": 2,
+      "day": 22,
+      "match": "e-ZUKA",
+      "links": [
+        {
+          "label": "公式サイト",
+          "url": "https://granrodeo.net/contents/schedule"
+        }
+      ]
+    }
+  ]
+}

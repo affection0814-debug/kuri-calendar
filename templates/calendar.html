@@ -1,0 +1,1137 @@
+<title>栗林みな実カレンダー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F9F6F1;
+    --surface: #FFFFFF;
+    --surface-alt: #F1EBE1;
+    --border: #E6DFD2;
+    --text: #23201B;
+    --text-muted: #6E6558;
+    --text-faint: #A39884;
+    --accent: #BD5B39;
+    --accent-ink: #FFFFFF;
+    --shadow: 0 1px 2px rgba(35, 32, 27, 0.04), 0 6px 20px rgba(35, 32, 27, 0.05);
+
+    --cat-single: #A6790F;
+    --cat-album: #2E6E5E;
+    --cat-best: #A03D66;
+    --cat-live: #BD5B39;
+    --cat-dvd: #3A5A9B;
+    --cat-bd: #6E4E9C;
+    --cat-cd: #2F8F4E;
+    --cat-radio: #4E6E8A;
+    --cat-tv: #C2410C;
+    --cat-anime: #7A9E3F;
+    --cat-relive: #C15F91;
+    --cat-sign: #5C8A8A;
+    --cat-fanmi: #E0A030;
+    --cat-stream: #2F6F8F;
+    --cat-ep: #8A6D3B;
+    --cat-release: #1F7A6B;
+    --cat-game: #7C4DBE;
+    --cat-other: #8C8272;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  header.top {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: "Shippori Mincho", serif;
+    font-weight: 700;
+    font-size: clamp(26px, 5vw, 36px);
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: 0.02em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .lede {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+    max-width: 60ch;
+  }
+
+  .lede-note {
+    margin: 0;
+    color: var(--text-faint);
+    font-size: 12.5px;
+  }
+
+  /* --- hero: today --- */
+  .hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  .hero-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .hero-date {
+    font-family: "Shippori Mincho", serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .hero-empty {
+    color: var(--text-muted);
+    font-size: 13.5px;
+  }
+
+  .hero-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* --- upcoming: next events --- */
+  .upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .upcoming-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--surface-alt);
+  }
+
+  .upc-date {
+    font-family: "JetBrains Mono", monospace;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .upc-date .upc-md {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .upc-date .upc-year {
+    display: block;
+    font-size: 10.5px;
+    color: var(--text-faint);
+  }
+
+  .upc-body { min-width: 0; }
+
+  .upc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: color-mix(in srgb, var(--dot-color) 12%, var(--surface));
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--dot-color) 40%, var(--border));
+    border-radius: 999px;
+    padding: 2px 9px 2px 7px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .upc-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 5px;
+    overflow-wrap: break-word;
+  }
+
+  .upc-note {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  .upc-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 6px;
+  }
+
+  .upc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+  .upc-link:hover { text-decoration-color: var(--accent); }
+  .upc-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .upc-link svg { flex: none; opacity: .8; }
+
+  /* 今日は何の日・過去の一覧に出すリンク行（直近イベントより控えめ） */
+  .ev-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    margin-top: 4px;
+  }
+  .ev-links .upc-link { font-size: 11.5px; margin-top: 0; }
+
+  .upc-countdown { text-align: right; }
+
+  .upc-days {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 999px;
+    padding: 5px 12px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- links card: where to get the file --- */
+  .links-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .links-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .links-row + .links-row {
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .links-label {
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .dl-btn:hover { filter: brightness(1.06); }
+  .dl-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .dl-btn:active { transform: translateY(1px); }
+
+  .src-link {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 13.5px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .src-link:hover { text-decoration-color: var(--accent); }
+  .src-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .links-note {
+    margin: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  /* --- subscribe card --- */
+  .sub-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+  }
+
+  .sub-head {
+    font-family: "Shippori Mincho", serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--text);
+  }
+
+  .sub-lede {
+    margin: 0 0 18px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .sub-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .sub-opt {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sub-opt-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: .02em;
+  }
+
+  .sub-opt-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+  }
+
+  .sub-url {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .sub-url code {
+    flex: 1;
+    min-width: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    user-select: all;
+  }
+
+  .copy-btn {
+    flex: none;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .copy-btn:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .sub-details {
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .sub-details + .sub-details { margin-top: 14px; }
+
+  .sub-details > summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-details > summary::-webkit-details-marker { display: none; }
+  .sub-details > summary::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-right: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    transform: rotate(-45deg);
+    transition: transform .18s ease;
+    flex: none;
+  }
+  .sub-details[open] > summary::before { transform: rotate(45deg); }
+  .sub-details > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .sub-body {
+    margin: 12px 0 0;
+    padding-left: 14px;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.85;
+  }
+  .sub-body li { margin-bottom: 8px; }
+  .sub-body li:last-child { margin-bottom: 0; }
+  .sub-body strong { color: var(--text); font-weight: 700; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sub-details > summary::before { transition: none; }
+  }
+
+  /* --- controls --- */
+  .controls {
+    position: sticky;
+    top: 12px;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: var(--bg);
+    padding: 10px 0;
+    margin-bottom: 6px;
+  }
+
+  .search-box {
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .search-box svg { flex-shrink: 0; color: var(--text-faint); }
+
+  .search-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .search-box input::placeholder { color: var(--text-faint); }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--dot-color, var(--text-faint));
+  }
+
+  .chip[aria-pressed="true"] {
+    background: color-mix(in srgb, var(--dot-color, var(--accent)) 14%, var(--surface));
+    border-color: var(--dot-color, var(--accent));
+    color: var(--text);
+  }
+
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* --- section headings --- */
+  .section-head {
+    font-family: "Shippori Mincho", serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 4px;
+  }
+
+  .section-lede {
+    margin: 0 0 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  /* --- event list --- */
+  .month-group { margin-bottom: 6px; }
+
+  .month-head {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    padding: 16px 2px 8px;
+    position: sticky;
+    top: 66px;
+    background: var(--bg);
+  }
+
+  .event-row {
+    display: grid;
+    grid-template-columns: 56px auto 1fr;
+    align-items: start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .event-row:hover { background: var(--surface); }
+
+  .ev-date {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    color: var(--text-faint);
+    padding-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: color-mix(in srgb, var(--dot-color) 12%, var(--surface));
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--dot-color) 40%, var(--border));
+    border-radius: 999px;
+    padding: 3px 10px 3px 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    height: fit-content;
+  }
+
+  .ev-body { min-width: 0; }
+
+  .ev-title {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+    overflow-wrap: break-word;
+  }
+
+  .ev-meta {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  /* --- day card: merged historical events for one month/day --- */
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .day-card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .day-card-date {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .day-card-count {
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+
+  .day-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .day-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .day-item-year {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    width: 42px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .day-item-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: color-mix(in srgb, var(--dot-color) 12%, var(--surface));
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--dot-color) 40%, var(--border));
+    border-radius: 999px;
+    padding: 1px 8px 1px 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .day-item-title {
+    font-size: 13.5px;
+    color: var(--text);
+    overflow-wrap: break-word;
+  }
+
+  .day-item-note {
+    color: var(--text-faint);
+    font-size: 11.5px;
+  }
+
+  .empty-state {
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 13.5px;
+    padding: 40px 0;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-faint);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .dl-btn { transition: filter 0.12s ease, transform 0.08s ease; }
+  }
+
+  @media (max-width: 480px) {
+    /* 年・カテゴリ・タイトルを続けて流し、3行を1行に圧縮する */
+    .event-row {
+      display: block;
+      padding: 8px 12px;
+    }
+    .ev-date {
+      display: inline;
+      padding-top: 0;
+      margin-right: 6px;
+    }
+    .ev-badge {
+      margin-right: 6px;
+      vertical-align: 1px;
+    }
+    .ev-body  { display: inline; min-width: 0; }
+    .ev-title { display: inline; }
+    .ev-meta  { display: block; margin-top: 3px; }
+
+    .links-row { flex-direction: column; align-items: flex-start; }
+    .dl-btn { width: 100%; justify-content: center; }
+
+    .upcoming-row {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "date"
+        "body"
+        "countdown";
+      row-gap: 6px;
+    }
+    .upc-date {
+      grid-area: date;
+      text-align: left;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .upc-body { grid-area: body; }
+    .upc-countdown { grid-area: countdown; text-align: left; }
+
+    /* カテゴリを日付の行に送り、タイトルを続けて流す */
+    .upc-date { flex-wrap: wrap; gap: 6px 8px; }
+    .upc-body > .upc-badge {
+      float: left;
+      margin: 1px 6px 0 0;
+    }
+    .upc-title { display: inline; }
+    .upc-note { clear: both; padding-top: 2px; }
+    .upc-links { clear: both; }
+
+    /* 年・カテゴリ・タイトルを続けて流し、1行分を圧縮する */
+    .day-item { display: block; }
+    .day-item-year {
+      display: inline;
+      width: auto;
+      margin-right: 6px;
+    }
+    .day-item-badge {
+      margin-right: 6px;
+      vertical-align: 1px;
+    }
+    .day-item-title { display: inline; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">🌰 Marron Calendar</span>
+    <h1>栗林みな実 イベントカレンダー</h1>
+    <p class="lede">同じ月日に、過去に起きたすべての出来事（シングル・アルバム発売、ライブ・ラジオ・テレビ出演、DVD/BDリリースなど）を振り返るカレンダーです。</p>
+    <p class="lede-note">Google、iCloud、Outlookなど主要カレンダーアプリに追加できます。</p>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-head">
+      <span class="hero-label">今日は何の日</span>
+      <span class="hero-date" id="heroDate"></span>
+    </div>
+    <div id="heroBody"></div>
+  </section>
+
+  <section class="hero" id="upcoming">
+    <div class="hero-head">
+      <span class="hero-label">直近のイベント</span>
+    </div>
+    <div id="upcomingBody"></div>
+  </section>
+
+  <section class="sub-card">
+    <h2 class="sub-head">カレンダーに追加する</h2>
+    <p class="sub-lede">お使いのカレンダーに追加すると、ここに載っている出来事と今後の予定がそのまま表示されます。<strong>一度追加すれば、新しいイベントは自動で反映されます。</strong>登録し直す必要はありません。</p>
+
+    <div class="sub-options">
+      <div class="sub-opt">
+        <span class="sub-opt-title">Googleカレンダーをお使いの方</span>
+        <p class="sub-opt-desc">ボタンを押すと追加画面が開きます。パソコンからの操作をおすすめします。</p>
+        <a class="dl-btn" href="https://calendar.google.com/calendar/u/0?cid=NmZkOGNlMWFkZmU0M2Y2OWM5MGZlMTQ4ZmM0ZDljODhmNjBiODhkYWU2YzQyNTFjOTViMDBiNGFiYWVmYmFkY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>
+          カレンダーに追加
+        </a>
+      </div>
+
+      <div class="sub-opt">
+        <span class="sub-opt-title">その他のアプリをお使いの方</span>
+        <p class="sub-opt-desc">Appleカレンダー、Outlook などをお使いの場合は、下のURLを登録してください。</p>
+        <div class="sub-url">
+          <code id="icsUrl">https://calendar.google.com/calendar/ical/6fd8ce1adfe43f69c90fe148fc4d9c88f60b88dae6c4251c95b00b4abaefbadc%40group.calendar.google.com/public/basic.ics</code>
+          <button class="copy-btn" id="copyBtn" type="button">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <details class="sub-details">
+      <summary>登録方法</summary>
+      <ul class="sub-body">
+        <li><strong>Googleカレンダー（パソコン）</strong>　上の「カレンダーに追加」を押し、表示された画面で「追加」を選択します。</li>
+        <li><strong>Googleカレンダー（スマートフォン）</strong>　アプリからは追加できません。パソコンのブラウザで一度追加すれば、スマートフォンのアプリにも自動で表示されます。手元にパソコンがない場合は、スマートフォンのブラウザで「PC版サイト」に切り替えると操作できます。</li>
+        <li><strong>iPhone / iPad（標準カレンダー）</strong>　設定 → アプリ → カレンダー → アカウント → アカウントを追加 → その他 → 照会するカレンダーを追加 → 上のURLを貼り付け。</li>
+        <li><strong>Outlook</strong>　カレンダー画面で「カレンダーを追加」→「インターネットから登録」→ 上のURLを貼り付け。</li>
+      </ul>
+    </details>
+
+    <details class="sub-details">
+      <summary>注意事項</summary>
+      <ul class="sub-body">
+        <li><strong>反映まで時間がかかります。</strong>更新を取りに行く間隔はカレンダー提供元が決めており、こちらからは変更できません。数時間から1日ほど遅れて反映されると考えてください。急ぎの場合はこのページをご覧ください。こちらは常に最新です。</li>
+        <li><strong>ほぼ毎日、予定が入ります。</strong>1年365日のうち314日に「その日の出来事」が登録されています。通知が煩わしい場合は、追加したカレンダーの通知設定をオフにしてください。</li>
+        <li><strong>過去の出来事は毎年繰り返し表示されます。</strong>今後の予定（ライブなど）はその日一度だけの表示です。</li>
+        <li><strong>不要になったら登録を解除できます。</strong>カレンダー一覧の「栗林みな実カレンダー」から解除してください。ご自身の予定には影響しません。</li>
+        <li>掲載内容に誤りを見つけた場合は、下の連絡先までお知らせいただけると助かります。</li>
+      </ul>
+    </details>
+  </section>
+
+  <section class="links-card">
+    <div class="links-row">
+      <span class="links-label">元データはこちら</span>
+      <a class="src-link" href="https://docs.google.com/spreadsheets/d/1YuqUnbm9WmaoXAaBEUnc_sNx4mXVh-1_vt2yPq7GZp8/edit?usp=drivesdk" target="_blank" rel="noopener">栗林みな実年表　栗の歴史に触れてみて！</a>
+    </div>
+    <div class="links-row">
+      <span class="links-label">楽曲・セトリ・タイムラインで年表を見れるサイトはこちら</span>
+      <a class="src-link" href="https://zinyaiba.github.io/music-bubble-v2/" target="_blank" rel="noopener">栗林みな実　Marron Bubbles~Next Season~</a>
+    </div>
+    <div class="links-row">
+      <span class="links-label">制作者への連絡はこちら</span>
+      <a class="src-link" href="https://x.com/minamisinzya" target="_blank" rel="noopener">@minamisinzya（X）</a>
+    </div>
+    <p class="links-note">※このページと配信カレンダーは、元データを毎週自動でチェックして更新しています。カレンダーを追加済みの方は、登録し直す必要はありません。</p>
+  </section>
+
+  <div class="controls">
+    <div class="search-box">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="曲名・ライブ名・イベント名で検索…" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="filter-row" id="filterRow"></div>
+
+  <h2 class="section-head">今までのイベント</h2>
+  <p class="section-lede">月日ごとに、これまでの出来事をまとめて掲載しています。</p>
+
+  <div id="listRoot"></div>
+
+  <footer>
+    <span>データ更新日：<span id="updatedDate"></span>／全<span id="totalCount"></span>件を掲載</span>
+    <span>毎週自動でチェックし、新しい出来事が見つかり次第このページに反映されます。</span>
+  </footer>
+</div>
+
+<script type="application/json" id="events-data">__EVENTS_JSON__</script>
+<script type="application/json" id="meta-data">__META_JSON__</script>
+
+<script>
+(function () {
+  const events = JSON.parse(document.getElementById('events-data').textContent);
+  const meta = JSON.parse(document.getElementById('meta-data').textContent);
+
+  const CATS = [
+    { key: 'シングル', emoji: '🎵', color: 'var(--cat-single)' },
+    { key: 'アルバム', emoji: '💿', color: 'var(--cat-album)' },
+    { key: 'ベスト',   emoji: '⭐', color: 'var(--cat-best)' },
+    { key: 'EP',      emoji: '🎶', color: 'var(--cat-ep)' },
+    { key: 'CD',      emoji: '💽', color: 'var(--cat-cd)' },
+    { key: '配信リリース', emoji: '🎧', color: 'var(--cat-release)' },
+    { key: 'ライブ',   emoji: '🎤', color: 'var(--cat-live)' },
+    { key: 'DVD',     emoji: '🎬', color: 'var(--cat-dvd)' },
+    { key: 'BD',      emoji: '📀', color: 'var(--cat-bd)' },
+    { key: 'ゲーム',   emoji: '🎮', color: 'var(--cat-game)' },
+    { key: 'ラジオ',   emoji: '📻', color: 'var(--cat-radio)' },
+    { key: 'テレビ',   emoji: '📺', color: 'var(--cat-tv)' },
+    { key: 'アニメ関連', emoji: '🎞️', color: 'var(--cat-anime)' },
+    { key: 'リリイベ', emoji: '🛍️', color: 'var(--cat-relive)' },
+    { key: 'サイン会', emoji: '✍️', color: 'var(--cat-sign)' },
+    { key: 'ファンミ', emoji: '🎉', color: 'var(--cat-fanmi)' },
+    { key: '配信',     emoji: '📡', color: 'var(--cat-stream)' },
+    { key: 'その他',   emoji: '📌', color: 'var(--cat-other)' },
+  ];
+  const catInfo = Object.fromEntries(CATS.map(c => [c.key, c]));
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // --- stats ---
+  const counts = {};
+  events.forEach(e => { counts[e.kubun] = (counts[e.kubun] || 0) + 1; });
+
+  // --- hero: today ---
+  const now = new Date();
+  const mm = now.getMonth() + 1, dd = now.getDate();
+  document.getElementById('heroDate').textContent = `${mm}月${dd}日`;
+  const todays = events.filter(e => e.month === mm && e.day === dd)
+    .sort((a, b) => a.year - b.year);
+  const heroBody = document.getElementById('heroBody');
+  if (todays.length) {
+    const list = document.createElement('div');
+    list.className = 'hero-list';
+    todays.forEach(e => list.appendChild(renderEventRow(e, true)));
+    heroBody.appendChild(list);
+  } else {
+    heroBody.innerHTML = `<p class="hero-empty">この日に登録されているイベントはまだありません。栗家族の記録が増えたら、ここに表示されます。</p>`;
+  }
+
+  // --- upcoming: next events (real dates, strictly after today — today itself is covered by "今日は何の日") ---
+  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dated = events.map(e => {
+    const d = new Date(e.year, e.month - 1, e.day);
+    const diffDays = Math.round((d - todayMidnight) / 86400000);
+    return { e, d, diffDays };
+  });
+  const upcoming = dated.filter(x => x.diffDays > 0).sort((a, b) => a.d - b.d);
+  const upcomingBody = document.getElementById('upcomingBody');
+  if (upcoming.length) {
+    const list = document.createElement('div');
+    list.className = 'upcoming-list';
+    upcoming.forEach(x => list.appendChild(renderUpcomingRow(x.e, x.diffDays)));
+    upcomingBody.appendChild(list);
+  } else {
+    upcomingBody.innerHTML = `<p class="hero-empty">現在、日付が確定している直近の予定はありません。新しい情報が入り次第、ここに表示されます。</p>`;
+  }
+
+  // --- filter chips ---
+  const filterRow = document.getElementById('filterRow');
+  const activeCats = new Set(CATS.map(c => c.key));
+  CATS.forEach(c => {
+    if (!counts[c.key]) return;
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'chip';
+    chip.setAttribute('aria-pressed', 'true');
+    chip.style.setProperty('--dot-color', c.color);
+    chip.innerHTML = `<span class="dot"></span>${c.emoji} ${c.key} (${counts[c.key]})`;
+    chip.addEventListener('click', () => {
+      const pressed = chip.getAttribute('aria-pressed') === 'true';
+      chip.setAttribute('aria-pressed', String(!pressed));
+      if (pressed) activeCats.delete(c.key); else activeCats.add(c.key);
+      render();
+    });
+    filterRow.appendChild(chip);
+  });
+
+  // --- list rendering ---
+  const listRoot = document.getElementById('listRoot');
+  const searchInput = document.getElementById('searchInput');
+  const MONTH_NAMES = ['', '1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+  function renderEventRow(e, inHero) {
+    const c = catInfo[e.kubun] || { emoji: '📌', color: 'var(--text-faint)' };
+    const row = document.createElement('div');
+    row.className = 'event-row';
+    row.innerHTML = `
+      <div class="ev-date">${inHero ? e.year + '年' : String(e.month).padStart(2,'0') + '/' + String(e.day).padStart(2,'0')}</div>
+      <div class="ev-badge" style="--dot-color:${c.color}">${c.emoji} ${esc(e.kubun)}</div>
+      <div class="ev-body">
+        <div class="ev-title">${esc(e.title)}</div>
+        <div class="ev-meta">${inHero ? '' : e.year + '年'}${e.note ? '　' + esc(e.note) : ''}</div>
+        ${renderLinks(e, 'ev-links')}
+      </div>`;
+    return row;
+  }
+
+  // 直近イベントの公式リンク。links 配列（複数可）と旧形式 url/urlLabel の両方を受ける。
+  function eventLinks(e) {
+    if (Array.isArray(e.links) && e.links.length) return e.links;
+    if (e.url) return [{ label: e.urlLabel || '公式情報', url: e.url }];
+    return [];
+  }
+
+  function renderLinks(e, cls) {
+    const links = eventLinks(e);
+    if (!links.length) return '';
+    const arrow = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+    const items = links.map(l =>
+      `<a class="upc-link" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label || '公式情報')}${arrow}</a>`
+    ).join('');
+    return `<div class="${cls || 'upc-links'}">${items}</div>`;
+  }
+
+  function renderUpcomingRow(e, diffDays) {
+    const c = catInfo[e.kubun] || { emoji: '📌', color: 'var(--text-faint)' };
+    const days = diffDays === 0 ? '本日' : `あと${diffDays}日`;
+    const row = document.createElement('div');
+    row.className = 'upcoming-row';
+    row.innerHTML = `
+      <div class="upc-date">
+        <span class="upc-md">${String(e.month).padStart(2,'0')}/${String(e.day).padStart(2,'0')}</span>
+        <span class="upc-year">${e.year}年</span>
+      </div>
+      <div class="upc-body">
+        <div class="upc-badge" style="--dot-color:${c.color}">${c.emoji} ${esc(e.kubun)}</div>
+        <div class="upc-title">${esc(e.title)}</div>
+        ${e.note ? `<div class="upc-note">${esc(e.note)}</div>` : ''}
+        ${renderLinks(e)}
+      </div>
+      <div class="upc-countdown"><span class="upc-days">${days}</span></div>`;
+    return row;
+  }
+
+  // --- day cards: historical events (today or earlier), grouped by month/day ---
+  const historical = dated.filter(x => x.diffDays <= 0).map(x => x.e);
+  const dayGroups = new Map(); // key "m-d" -> events[]
+  historical.forEach(e => {
+    const key = `${e.month}-${e.day}`;
+    if (!dayGroups.has(key)) dayGroups.set(key, []);
+    dayGroups.get(key).push(e);
+  });
+  dayGroups.forEach(list => list.sort((a, b) => a.year - b.year));
+  const dayKeys = Array.from(dayGroups.keys()).sort((a, b) => {
+    const [am, ad] = a.split('-').map(Number);
+    const [bm, bd] = b.split('-').map(Number);
+    return am !== bm ? am - bm : ad - bd;
+  });
+
+  function renderDayCard(items) {
+    const first = items[0];
+    const card = document.createElement('div');
+    card.className = 'day-card';
+    const head = document.createElement('div');
+    head.className = 'day-card-head';
+    head.innerHTML = `<span class="day-card-date">${String(first.month).padStart(2,'0')}/${String(first.day).padStart(2,'0')}</span><span class="day-card-count">${items.length}件</span>`;
+    card.appendChild(head);
+    const list = document.createElement('div');
+    list.className = 'day-card-list';
+    items.forEach(e => {
+      const c = catInfo[e.kubun] || { emoji: '📌', color: 'var(--text-faint)' };
+      const item = document.createElement('div');
+      item.className = 'day-item';
+      item.innerHTML = `
+        <span class="day-item-year">${e.year}年</span>
+        <span class="day-item-badge" style="--dot-color:${c.color}">${c.emoji} ${esc(e.kubun)}</span>
+        <span class="day-item-title">${esc(e.title)}${e.note ? `<span class="day-item-note">　${esc(e.note)}</span>` : ''}</span>
+        ${renderLinks(e, 'ev-links')}`;
+      list.appendChild(item);
+    });
+    card.appendChild(list);
+    return card;
+  }
+
+  function render() {
+    const q = searchInput.value.trim().toLowerCase();
+    listRoot.innerHTML = '';
+    let shown = 0;
+    let currentMonth = null;
+    let monthWrap = null;
+    dayKeys.forEach(key => {
+      const items = dayGroups.get(key).filter(e => {
+        if (!activeCats.has(e.kubun)) return false;
+        if (q && !e.title.toLowerCase().includes(q)) return false;
+        return true;
+      });
+      if (!items.length) return;
+      const month = items[0].month;
+      if (month !== currentMonth) {
+        currentMonth = month;
+        const head = document.createElement('div');
+        head.className = 'month-head';
+        head.textContent = MONTH_NAMES[currentMonth];
+        listRoot.appendChild(head);
+        monthWrap = document.createElement('div');
+        monthWrap.className = 'month-group';
+        listRoot.appendChild(monthWrap);
+      }
+      monthWrap.appendChild(renderDayCard(items));
+      shown++;
+    });
+    if (!shown) {
+      listRoot.innerHTML = '<div class="empty-state">条件に一致するイベントが見つかりませんでした。</div>';
+    }
+  }
+  searchInput.addEventListener('input', render);
+  render();
+
+  // --- copy subscription URL ---
+  const copyBtn = document.getElementById('copyBtn');
+  const icsUrl = document.getElementById('icsUrl');
+  if (copyBtn && icsUrl) {
+    copyBtn.addEventListener('click', async () => {
+      const text = icsUrl.textContent.trim();
+      const done = (msg) => {
+        const original = 'コピー';
+        copyBtn.textContent = msg;
+        setTimeout(() => { copyBtn.textContent = original; }, 1800);
+      };
+      try {
+        await navigator.clipboard.writeText(text);
+        done('コピーしました');
+      } catch (err) {
+        // クリップボードが使えない環境では、選択状態にして手動コピーを促す
+        const range = document.createRange();
+        range.selectNodeContents(icsUrl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        done('選択しました');
+      }
+    });
+  }
+
+  // --- footer meta ---
+  document.getElementById('updatedDate').textContent = meta.updated;
+  document.getElementById('totalCount').textContent = events.length;
+})();
+</script>
