@@ -12,7 +12,7 @@
  */
 
 // ==== 設定 ====================================================
-const ICS_URL = 'https://<ユーザー名>.github.io/<リポジトリ名>/calendar/calendar.ics';
+const ICS_URL = 'https://affection0814-debug.github.io/kuri-calendar/calendar/calendar.ics';
 const CALENDAR_ID = '6fd8ce1adfe43f69c90fe148fc4d9c88f60b88dae6c4251c95b00b4abaefbadc@group.calendar.google.com';
 
 // 元データから消えた予定を自動削除するか。false = 記録に残すだけ（推奨）
